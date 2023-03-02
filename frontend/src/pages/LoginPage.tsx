@@ -10,7 +10,7 @@ import {
   FormHelperText,
   Link,
 } from "@mui/material";
-import React from "react";
+import { Link as RouterLink } from "react-router-dom";
 
 function LoginPage() {
   return (
@@ -54,8 +54,13 @@ function LoginPage() {
                   </Link>
                 </FormHelperText>
                 <FormHelperText>
-                  <Link color="inherit" underline="hover" component="button">
-                    Don't have an account?
+                  <Link href="/register" color="inherit" underline="hover" component="button">
+                <RouterLink
+                  to="/register"
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
+                  Don't have an account?
+                </RouterLink>
                   </Link>
                 </FormHelperText>
               </Grid>
