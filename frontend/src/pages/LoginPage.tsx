@@ -33,7 +33,7 @@ function LoginPage() {
                 type="email"
                 autoFocus
                 size="small"
-                variant="outlined"
+                variant="filled"
                 label="Email Address"
               />
             </FormGroup>
@@ -44,7 +44,7 @@ function LoginPage() {
                 size="small"
                 type="password"
                 required
-                variant="outlined"
+                variant="filled"
                 label="Password"
               />
               <Grid container justifyContent="space-between">
@@ -54,13 +54,18 @@ function LoginPage() {
                   </Link>
                 </FormHelperText>
                 <FormHelperText>
-                  <Link href="/register" color="inherit" underline="hover" component="button">
-                <RouterLink
-                  to="/register"
-                  style={{ textDecoration: "none", color: "inherit" }}
-                >
-                  Don't have an account?
-                </RouterLink>
+                  <Link
+                    href="/register"
+                    color="inherit"
+                    underline="hover"
+                    component="button"
+                  >
+                    <RouterLink
+                      to="/register"
+                      style={{ textDecoration: "none", color: "inherit" }}
+                    >
+                      Don't have an account?
+                    </RouterLink>
                   </Link>
                 </FormHelperText>
               </Grid>

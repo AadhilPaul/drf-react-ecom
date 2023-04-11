@@ -10,7 +10,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 class CustomAccountManager(BaseUserManager):
 
     # custom create super user
-    def create_superuser(self, email, username, phone_number, password, **other_fields):
+    def create_superuser(self, email, username, password, **other_fields):
 
         other_fields.setdefault('is_staff', True)
         other_fields.setdefault('is_superuser', True)
@@ -23,15 +23,15 @@ class CustomAccountManager(BaseUserManager):
             raise ValueError(
                 'Superuser must be assigned to is_superuser=True.')
 
-        return self.create_user(email=email, username=username, phone_number=phone_number, password=password, **other_fields)
+        return self.create_user(email=email, username=username, password=password, **other_fields)
 
-    def create_user(self, email, username, phone_number, password, **other_fields):
+    def create_user(self, email, username, password, **other_fields):
         if not email:
             raise ValueError(_("You must provide an email address"))
 
         email = self.normalize_email(email)
         user = self.model(email=email, username=username,
-                          phone_number=phone_number, password=password, **other_fields)
+                          password=password, **other_fields)
         user.set_password(password)
         user.save()
         return user
@@ -40,13 +40,12 @@ class CustomAccountManager(BaseUserManager):
 class MyUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(_('email_address'), unique=True)
     username = models.CharField(max_length=150, unique=True)
-    phone_number = PhoneNumberField(unique=True)
     start_date = models.DateTimeField(default=timezone.now)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username', 'phone_number']
+    REQUIRED_FIELDS = ['username']
 
     objects = CustomAccountManager()
 
