@@ -1,3 +1,4 @@
+import * as React from "react";
 import arrow_down from "../assets/arrow-down.png";
 import {
   AppBar,
@@ -12,6 +13,20 @@ import { Link as RouterLink } from "react-router-dom";
 
 function Navbar() {
   const links: string[] = ["Franchise", "Explore", "Pricing"];
+  const [authenticated, setAuthenticated] = React.useState<boolean>();
+
+  React.useEffect(() => {
+    setAuthenticated(
+      "access_token" in localStorage && "refresh_token" in localStorage
+    );
+  }, []);
+
+  function logout(e: React.MouseEvent<HTMLButtonElement>) {
+    e.preventDefault();
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
+    window.location.href = '/login'
+  }
 
   return (
     <Box>
@@ -49,23 +64,31 @@ function Navbar() {
                 </Typography>
               </Link>
             </Box>
-            <RouterLink
-              to="/login"
-              style={{ textDecoration: "none", color: "inherit" }}
-            >
-              <Button size="small" variant="outlined">
-                Login
+            {authenticated ? (
+              <Button onClick={logout} size="small" variant="contained">
+                Logout
               </Button>
-            </RouterLink>
-            &nbsp;
-            <RouterLink
-              to="/register"
-              style={{ textDecoration: "none", color: "inherit" }}
-            >
-              <Button size="small" variant="contained">
-                Register
-              </Button>
-            </RouterLink>
+            ) : (
+              <Box>
+                <RouterLink
+                  to="/login"
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
+                  <Button size="small" variant="outlined">
+                    Login
+                  </Button>
+                </RouterLink>
+                &nbsp;
+                <RouterLink
+                  to="/register"
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
+                  <Button size="small" variant="contained">
+                    Register
+                  </Button>
+                </RouterLink>
+              </Box>
+            )}
           </Toolbar>
         </Container>
       </AppBar>
