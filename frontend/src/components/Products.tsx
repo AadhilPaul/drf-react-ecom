@@ -11,8 +11,9 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import { Box } from "@mui/system";
+import axiosInstance from "../axios";
 
-interface Product {
+export interface Product {
   id?: number;
   name?: string;
   price?: string;
@@ -23,15 +24,10 @@ interface Product {
 function Products() {
   const [products, setProducts] = React.useState<Product[]>();
 
-  async function getData(): Promise<void> {
-    try {
-      const response = await axios.get(
-        "http://127.0.0.1:8000/store/product-list/"
-      );
-      setProducts(response.data);
-    } catch (error) {
-      console.log("ERROR: ", error);
-    }
+  function getData(): void {
+    axiosInstance.get("store/product-list/").then((res) => {
+      setProducts(res.data);
+    });
   }
 
   React.useEffect(() => {

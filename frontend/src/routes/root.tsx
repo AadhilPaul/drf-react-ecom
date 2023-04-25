@@ -3,6 +3,7 @@ import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
 import HomePage from "../pages/HomePage";
 import ErrorPage from "../pages/ErrorPage";
+import CartPage from '../pages/CartPage'
 
 function Root() {
   return (
@@ -11,6 +12,7 @@ function Root() {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
       <Route path="*" element={<ErrorPage />} />
+      <Route path="/cart" element={<CartPage />}/>
     </Routes>
   );
 }

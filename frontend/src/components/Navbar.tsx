@@ -2,6 +2,7 @@ import * as React from "react";
 import arrow_down from "../assets/arrow-down.png";
 import {
   AppBar,
+  IconButton,
   Container,
   Box,
   Button,
@@ -9,6 +10,7 @@ import {
   Toolbar,
   Link,
 } from "@mui/material";
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Link as RouterLink } from "react-router-dom";
 
 function Navbar() {
@@ -25,7 +27,7 @@ function Navbar() {
     e.preventDefault();
     localStorage.removeItem("access_token");
     localStorage.removeItem("refresh_token");
-    window.location.href = '/login'
+    window.location.href = "/login";
   }
 
   return (
@@ -65,9 +67,19 @@ function Navbar() {
               </Link>
             </Box>
             {authenticated ? (
-              <Button onClick={logout} size="small" variant="contained">
-                Logout
-              </Button>
+              <Box>
+                <RouterLink
+                  to="/cart"
+                  style={{marginRight: "10px", textDecoration: "none", color: "inherit" }}
+                >
+                  <IconButton color="primary">
+                    <ShoppingCartIcon/>
+                  </IconButton>
+                </RouterLink>
+                <Button onClick={logout} size="small" variant="contained">
+                  Logout
+                </Button>
+              </Box>
             ) : (
               <Box>
                 <RouterLink
